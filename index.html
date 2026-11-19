@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>掼蛋 · 青禾牌室</title><link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="mobile.css"><link rel="stylesheet" href="web.css"></head>
+<body>
+<div class="app">
+  <header><div class="brand"><span class="brand-icon">♠</span><div><h1>青禾牌室 <small>掼蛋</small></h1><p>一人入座，四家对弈</p></div></div><div class="scorebar"><div><span>我方</span><strong id="our-level">2</strong></div><div class="round-tag"><span id="round">第 1 副</span><b id="level">本副打 2</b></div><div><strong id="their-level">2</strong><span>对方</span></div></div><div class="header-tools"><span class="offline"><i></i><span id="mode-label">离线单机</span></span><button id="mobile-settings-open">菜单</button><button id="exit-game">退出</button></div></header>
+  <main>
+    <section class="arena" aria-label="掼蛋牌桌">
+      
+      <div class="table">
+        <div class="table-ring"></div>
+        <section class="seat north" id="seat-2"><div class="avatar friend">竹</div><div class="seat-info"><h2>青竹 <span>搭档 · Agent 02</span></h2><p class="seat-status"></p></div><div class="backs">▧ ▧ ▧ ▧ ▧</div><div class="seat-play"></div></section>
+        <section class="seat west" id="seat-3"><div class="avatar">川</div><div class="seat-info"><h2>墨川 <span>上家 · Agent 03</span></h2><p class="seat-status"></p></div><div class="backs">▧ ▧ ▧</div><div class="seat-play"></div></section>
+        <section class="seat east" id="seat-1"><div class="avatar">松</div><div class="seat-info"><h2>赤松 <span>下家 · Agent 01</span></h2><p class="seat-status"></p></div><div class="backs">▧ ▧ ▧</div><div class="seat-play"></div></section>
+        <div class="center"><span class="table-label">青 禾 牌 室</span><div id="target-cards" class="played-cards"></div><div id="target-label">从 2 打起 · 过 A 获胜</div><p id="turn-message" role="status" aria-live="polite"></p><div class="mobile-feedback"><span id="selection-info">点击手牌选择，再点击出牌</span><div id="error" class="error" role="alert"></div></div></div>
+        <section class="seat south" id="seat-0"><div class="avatar player">你</div><div class="seat-info"><h2>你 <span>与青竹同队</span></h2><p class="seat-status"></p></div><div class="seat-play"></div></section>
+      </div>
+      <div class="hand-area"><div class="hand-heading"><span>你的手牌 <b id="hand-count">27</b></span><span id="wild-info">♥2 为百搭牌</span><div class="sort-tools"><button id="sort">按点数</button><button id="sort-suit" title="拆开所有组合，恢复点数竖排">重置理牌</button></div></div><div class="manual-tools" aria-label="手动理牌"><button id="gather" disabled title="合法组合竖排到最右边">理牌</button><button id="move-left" hidden disabled aria-label="选中牌左移">← 左移</button><button id="move-right" hidden disabled aria-label="选中牌右移">右移 →</button></div><div id="hand" class="hand" aria-label="你的手牌"></div></div>
+      <div class="actionbar"><div class="mobile-actions"><button id="retry" hidden>重试 AI</button><button id="clear">清除</button><button id="hint">提示</button><button id="pass">不出</button><button id="play" class="primary">出牌</button></div></div>
+    </section>
+    
+  </main>
+  <footer>108 张牌，两个阵营，一场好牌。<span>规则基于《竞技掼蛋竞赛规则（试行）》</span></footer>
+</div>
+<dialog id="mobile-settings"><div class="dialog-head"><h2>牌局菜单</h2><button id="mobile-settings-close" aria-label="关闭菜单">×</button></div><div class="mobile-settings-body"><div class="mobile-menu-tools"><button id="rules">规则说明</button><button id="restart">重新开局</button></div><aside>
+      <section class="panel settings ai-settings" aria-label="AI 决策方式"><h3>CherryIN · AI 决策方式</h3><label>模式 <select id="agent-mode"><option value="local" selected>本地规则</option><option value="llm">CherryIN 大模型</option></select></label><div id="model-controls" hidden><label>模型厂家 <select id="agent-vendor"></select></label><label>模型类型 <select id="agent-model"></select></label><label id="custom-model-field" hidden>完整模型 ID <input id="custom-model" placeholder="厂家/模型名称" autocomplete="off"></label><button id="refresh-models">刷新 CherryIN 模型列表</button><p id="catalog-status">内置列表为官方文档示例，不保证当前令牌可用；可刷新或手动填写控制台 ID。</p><label>接口 <select id="agent-protocol"><option value="auto">自动选择</option><option value="chat">Chat Completions</option><option value="responses">Responses</option></select></label><label>难度 <select id="agent-difficulty"></select></label><p id="difficulty-detail"></p><p class="api-notice">三家通过 CherryIN 调用所选厂家的模型，各自发送自己的手牌及公开信息。消耗 CherryIN 额度，按平台计费。</p></div><p id="api-status" role="status"></p><button id="apply-ai" class="primary">应用 AI 设置</button></section>
+      <div class="panel intro"><span class="eyebrow">TABLE NOTES</span><h2>独立决策，同队配合。</h2><p id="agent-description">三位本地规则型 Agent 在独立线程中决策，只读取自己的手牌和公开信息，不使用大模型。</p><div class="agent-line"><i></i><span id="agent-health">3 位 Agent 已就绪</span></div></div>
+      <div class="panel settings"><h3>牌局设置</h3><label>出牌节奏 <select id="speed"><option value="3000">悠闲 · 3 秒</option><option value="1000" selected>标准 · 1 秒</option><option value="500">快速 · 0.5 秒</option></select></label><p>每家最近出的牌保留在座位前，再次出牌时更新；不出时仍保留上一手牌。</p><label>自动托管 <input id="auto" type="checkbox"></label><p>托管会替你选牌；随时关闭可接手。</p></div>
+      <div class="panel log-panel"><h3>牌局记录 <span>PUBLIC LOG</span></h3><ol id="log" aria-label="公开牌局记录"></ol></div>
+      <p class="footer-note">竞技规则 · 无需联网 · 自动保存</p>
+    </aside></div></dialog><dialog id="rules-dialog"><div class="dialog-head"><h2>掼蛋规则</h2><button id="close-rules" aria-label="关闭规则">×</button></div><div class="rules-content">
+<p>本游戏采用 2022 年《竞技掼蛋竞赛规则（试行）》的牌桌规则，单机比赛从 2 开始，过 A 结束。<a href="https://www.epcppk.com/archives/4351.html/" target="_blank" rel="noreferrer">查看完整规则原文 ↗</a></p>
+<h3>搭档与出牌</h3><p>两副牌，每家 27 张，对家同队，逆时针出牌（你 → 右侧赤松 → 青竹 → 左侧墨川）。领出可用任意合法牌型；跟牌必须更大，也可过牌。其余在场玩家均过牌后，最后出牌者重新领出；已出完牌时由其搭档借风。</p>
+<h3>牌点与级牌</h3><p>单张、对子、三同张：大王 &gt; 小王 &gt; 本副级牌 &gt; A &gt; K … &gt; 2。红心级牌可配成除大小王以外的牌；单出时仍是级牌。连续牌型中的级牌按原点数插入，A 可作最小点数 1，不能跨越 K-A-2。</p>
+<h3>合法牌型</h3><p>单张、对子、三同张、三带对（3+2）、顺子（固定 5 张）、三连对（固定 3 对）、三同连张（固定 2 组三张）、同点炸弹（4 张及以上）、同花顺（5 张同花）、四大天王（两大王两小王）。三带对只比较三张部分；连续牌型按最高点数比较。同点炸弹先比张数，再比点数。</p>
+<p>四大天王 &gt; 六张及以上炸弹 &gt; 同花顺 &gt; 五张炸弹 &gt; 四张炸弹 &gt; 普通牌型。普通牌型之间仅可同型比较。</p>
+<h3>升级与过 A</h3><p>头游方升级：搭档二游升 3 级，三游升 2 级，末游升 1 级。双上时立即结算；否则三人出完结算。A级必打，在本方打 A 时拿到头游且搭档不是末游，即过 A 获胜。下一副级牌由上一副胜方升级后的级数确定。</p>
+<h3>进贡、还牌与抗贡</h3><p>下一副开始，末游向头游进贡最大牌，红心级牌不参与进贡。双下则双贡，大贡给头游，小贡给二游；同点时顺时针进贡。受贡者还一张点数不超过 10 的牌，若没有则还最小牌。单贡由末游首出；双贡由向头游进贡者首出。进贡方共抓到两张大王则抗贡，由上副头游首出。需要你还牌时，选择一张可还的牌并确认。</p>
+<h3>单机约定</h3><p>首副随机翻一张非王、非红心 2 的牌，持牌者首出。各家余牌始终可见，出牌记录公开。涉及配牌的多种解释会显示在手牌下方，选择所需牌型后出牌。游戏不模拟现场裁判、申诉、比赛时钟及违规处罚。</p>
+</div></dialog>
+<dialog id="result-dialog"><span class="eyebrow">ROUND COMPLETE</span><h2 id="result-title"></h2><p id="result-detail"></p><div id="rankings"></div><button id="next" class="primary">开始下一副</button></dialog>
+<dialog id="exit-dialog"><h2>退出牌局</h2><p>暂停退出：保存当前出牌状态，下次继续。</p><p>中断退出：本副不计胜负，只保留双方级数，下次重新发牌。</p><p id="exit-error" role="alert"></p><div class="exit-actions"><button id="exit-pause" class="primary">暂停退出</button><button id="exit-interrupt">中断退出</button><button id="exit-cancel">取消，继续游戏</button></div></dialog><dialog id="resume-dialog"><h2 id="resume-title"></h2><p id="resume-detail"></p><button id="resume-game" class="primary">继续当前牌局</button></dialog>
+<script src="engine.js"></script><script src="agent-settings.js"></script><script src="agents.js"></script><script src="hand-layout.js"></script><script src="hand-columns.js"></script><script src="game-session.js"></script><script src="web-ui.js"></script><script src="app.js"></script>
+</body></html>

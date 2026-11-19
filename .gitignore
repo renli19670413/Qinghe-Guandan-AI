@@ -1,0 +1,14 @@
+openai.config.json
+cherryin.config.json
+.env*
+server-start.log
+server-error.log
+node_modules/
+dist/
+coverage/
+*.log
+*.pem
+*.key
+*.p12
+.DS_Store
+Thumbs.db

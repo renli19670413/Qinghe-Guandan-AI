@@ -1,0 +1,26 @@
+header .header-tools .offline{display:inline-block;max-width:35vw;overflow:hidden;text-overflow:ellipsis;color:#aac6b6;font-size:11px;margin:0 5px;white-space:nowrap}
+.arena .hand{--column-width:44px;--card-height:60px;--stack-step:clamp(14px,2.5vh,18px);display:flex;align-items:flex-end;gap:5px;padding:9px 2px 3px;max-height:45vh;overflow:auto;justify-content:safe center}
+.hand-column{position:relative;flex:0 0 var(--column-width);width:var(--column-width);height:calc(var(--card-height) + (var(--stack-size,1) - 1)*var(--stack-step));min-height:var(--card-height)}
+.arena .hand .hand-column .card{position:absolute;left:0;top:calc(var(--stack-index,0)*var(--stack-step));width:100%;height:var(--card-height);margin:0;font-size:13px;line-height:1.05;padding:2px 3px;writing-mode:horizontal-tb;transition:transform .1s;min-height:0}
+.arena .hand .hand-column .card .suit{display:inline;font-size:11px;margin:0 0 0 3px}
+.arena .hand .hand-column .card.joker{font-size:10px}
+.arena .hand .hand-column .card.selected,.arena .hand .hand-column .card.selected:hover:enabled{transform:translateX(5px);box-shadow:2px 0 0 #e7c680}
+.packed-group{border-radius:5px;outline:1px solid #d9bf8390;margin-left:5px}
+.exit-actions{display:flex;gap:8px;flex-wrap:wrap}#exit-error{color:#f1a18c}#resume-dialog,#exit-dialog{max-width:560px;line-height:1.7}
+.ai-settings #api-status{margin-top:8px;color:#d9bf83}.ai-settings .api-notice{margin-top:5px}.ai-settings #apply-ai{padding:5px 10px}
+.ai-settings{grid-column:1/-1}.ai-settings select{max-width:65%}.ai-settings input{width:65%;min-width:0;padding:5px;background:#253d2e;border:1px solid #4a6250;border-radius:5px;color:#d6e2d5}.ai-settings #catalog-status{font-size:10px;line-height:1.6} [hidden]{display:none!important}
+@media(max-width:640px){header .header-tools .offline{display:none}}
+@media(min-width:820px) and (min-height:530px){
+  .app{max-width:1500px;padding:10px 18px 14px}.app>header{padding:5px 12px;min-height:48px;border-radius:8px}.brand h1{font-size:17px}.brand-icon{width:30px;height:30px;line-height:28px;font-size:20px}
+  header .scorebar span,header .round-tag b{font-size:13px}header .scorebar strong{font-size:22px}.header-tools button{font-size:13px;min-height:34px;padding:2px 13px}
+  .app>main{margin-top:8px}.app .arena{grid-template-columns:minmax(0,1fr) 104px;column-gap:10px}
+  .arena .table{padding:14px 12px;grid-template-rows:auto minmax(110px,1fr) auto}.arena .table-ring{inset:8% 12%;border-width:2px}
+  .arena .north,.arena .south{width:min(100%,480px);gap:8px}.arena .seat{padding:7px;gap:7px}.arena .seat .avatar{width:39px;height:39px;line-height:37px;font-size:20px}
+  .arena .seat .seat-info h2,.arena .seat .seat-status{font-size:13px}.seat-cards .mini-card{width:31px;height:45px;font-size:14px}.seat-play-label,.pass-badge{font-size:11px}
+  .arena .center #target-label,.arena .center #turn-message{font-size:15px}.arena .mobile-feedback,.arena .mobile-feedback .error{font-size:13px;max-height:65px}
+  .arena .hand-area{padding:5px 8px 3px}.arena .hand-heading{font-size:12px}.arena .hand-heading button,.arena .manual-tools button{min-height:30px;font-size:12px;padding:3px 8px}
+  .arena .hand{--card-width:53px;--card-step:clamp(20px,calc((100% - var(--card-width)) / var(--hand-gaps,26)),55px);padding-top:12px}.arena .hand .card{height:75px;font-size:19px}.arena .hand .card .suit{font-size:17px}.arena .hand .card.joker{font-size:13px}
+  .arena .actionbar{padding:5px 8px 8px 0}.arena .actionbar>.mobile-actions{gap:6px}.arena .mobile-actions button,.arena .actionbar #play{min-height:44px;font-size:15px}.arena .actionbar #clear{font-size:12px;min-height:32px}
+  .arena .hand{--column-width:51px;--card-height:70px;--stack-step:19px;gap:7px}
+  .arena .hand .hand-column .card{font-size:16px}.arena .hand .hand-column .card .suit{font-size:14px}
+}
