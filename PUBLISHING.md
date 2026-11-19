@@ -1,17 +1,17 @@
-# 发布到 renli19670413/Guandan
+# 发布到 renli19670413/Qinghe-Guandan-AI
 
-仓库目标地址：`https://github.com/renli19670413/Guandan`。此地址是本项目准备使用的目标，尚不表示远程仓库已创建或上传。
+仓库目标地址：`https://github.com/renli19670413/Qinghe-Guandan-AI`。此地址是本项目准备使用的目标，尚不表示远程仓库已创建或上传。
 
 ## 方式一：GitHub 网页上传
 
-1. 用 `renli19670413` 登录 GitHub，打开 [创建仓库](https://github.com/new)。仓库名填 `Guandan`，可自行选 Public 或 Private。
-2. 本地运行 `npm run package:windows`，解压 `dist/Guandan-1.2.0-source.zip` 到新文件夹。
+1. 用 `renli19670413` 登录 GitHub，打开 [创建仓库](https://github.com/new)。仓库名填 `Qinghe-Guandan-AI`，可自行选 Public 或 Private。
+2. 本地运行 `npm run package:windows`，解压 `dist/Qinghe-Guandan-AI-1.2.0-source.zip` 到新文件夹。
 3. 进入新仓库的「Add file → Upload files」，上传这个解压文件夹里的内容，包括 `.github`、`.gitignore` 等文件。不要上传原工作目录中的私有配置或整个 `dist` 文件夹。
 4. GitHub 网页不便上传点开头文件时，使用下面的 Git 方式。新仓库若已初始化 README，也可用 GitHub Desktop 克隆后把发布包内容复制过去、提交再推送。
 
 ## 方式二：Git 推送（推荐）
 
-先在 GitHub 创建名为 `Guandan` 的空仓库，不勾选初始化 README。然后在本项目目录运行：
+先在 GitHub 创建名为 `Qinghe-Guandan-AI` 的空仓库，不勾选初始化 README。然后在本项目目录运行：
 
 ```powershell
 git remote -v
@@ -26,7 +26,7 @@ git push -u origin main
 
 仓库上传后，在「Settings → Pages → Build and deployment → Source」选 **GitHub Actions**。然后到「Actions」手动运行 **Deploy offline demo to GitHub Pages**。
 
-如果仓库名是 `Guandan`，默认网址预计为 `https://renli19670413.github.io/Guandan/`（以工作流实际输出为准）。这个静态版本只运行本地规则 Agent，不能在 GitHub Pages 上运行 Node.js 服务，也不会向浏览器提供 API Key。
+如果仓库名是 `Qinghe-Guandan-AI`，默认网址预计为 `https://renli19670413.github.io/Qinghe-Guandan-AI/`（以工作流实际输出为准）。这个静态版本只运行本地规则 Agent，不能在 GitHub Pages 上运行 Node.js 服务，也不会向浏览器提供 API Key。
 
 完整 CherryIN 模式供使用者下载后在本机运行。如果要发布到公网并代用户提供 API，需要另做登录鉴权、分用户额度和服务部署；当前服务按个人本机使用设计，不直接暴露公网。
 

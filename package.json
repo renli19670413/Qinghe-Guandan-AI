@@ -1,9 +1,9 @@
 {
-  "name": "qinghe-guandan-web",
+  "name": "qinghe-guandan-ai",
   "version": "1.2.0",
   "private": true,
   "description": "Local Guandan web game with CherryIN multi-vendor AI agents",
   "engines": {"node": ">=22"},
-  "repository": {"type":"git","url":"https://github.com/renli19670413/Guandan.git"},
+  "repository": {"type":"git","url":"https://github.com/renli19670413/Qinghe-Guandan-AI.git"},
   "scripts": {"start": "node server.js", "test": "node --test cherryin-agent.test.js openai-agent.test.js layout-session.test.js server.test.js distribution.test.js", "build:pages":"node scripts/distribution.js", "package:windows":"powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package.ps1"}
 }

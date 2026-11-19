@@ -20,14 +20,14 @@ jobs:
         shell: bash
         run: |
           stage="$(node scripts/distribution.js source)"
-          archive="$GITHUB_WORKSPACE/dist/Guandan-source.zip"
+          archive="$GITHUB_WORKSPACE/dist/Qinghe-Guandan-AI-source.zip"
           (cd "$stage" && zip -qr "$archive" .)
       - uses: actions/upload-artifact@v4
         with:
-          name: Guandan-source
-          path: dist/Guandan-source.zip
+          name: Qinghe-Guandan-AI-source
+          path: dist/Qinghe-Guandan-AI-source.zip
       - name: Publish tagged release
         if: startsWith(github.ref, 'refs/tags/')
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create "$GITHUB_REF_NAME" dist/Guandan-source.zip --generate-notes --verify-tag
+        run: gh release create "$GITHUB_REF_NAME" dist/Qinghe-Guandan-AI-source.zip --generate-notes --verify-tag
