@@ -1,5 +1,5 @@
 header .header-tools .offline{display:inline-block;max-width:35vw;overflow:hidden;text-overflow:ellipsis;color:#aac6b6;font-size:11px;margin:0 5px;white-space:nowrap}
-.arena .hand{--column-width:44px;--card-height:60px;--stack-step:clamp(14px,2.5vh,18px);display:flex;align-items:flex-end;gap:5px;padding:9px 2px 3px;max-height:45vh;overflow:auto;justify-content:safe center}
+.arena .hand{--column-width:44px;--card-height:60px;--stack-step:22px;display:flex;align-items:flex-start;gap:5px;padding:9px 2px 3px;max-height:45vh;overflow:auto;justify-content:safe center}
 .hand-column{position:relative;flex:0 0 var(--column-width);width:var(--column-width);height:calc(var(--card-height) + (var(--stack-size,1) - 1)*var(--stack-step));min-height:var(--card-height)}
 .arena .hand .hand-column .card{position:absolute;left:0;top:calc(var(--stack-index,0)*var(--stack-step));width:100%;height:var(--card-height);margin:0;font-size:13px;line-height:1.05;padding:2px 3px;writing-mode:horizontal-tb;transition:transform .1s;min-height:0}
 .arena .hand .hand-column .card .suit{display:inline;font-size:11px;margin:0 0 0 3px}
@@ -21,6 +21,15 @@ header .header-tools .offline{display:inline-block;max-width:35vw;overflow:hidde
   .arena .hand-area{padding:5px 8px 3px}.arena .hand-heading{font-size:12px}.arena .hand-heading button,.arena .manual-tools button{min-height:30px;font-size:12px;padding:3px 8px}
   .arena .hand{--card-width:53px;--card-step:clamp(20px,calc((100% - var(--card-width)) / var(--hand-gaps,26)),55px);padding-top:12px}.arena .hand .card{height:75px;font-size:19px}.arena .hand .card .suit{font-size:17px}.arena .hand .card.joker{font-size:13px}
   .arena .actionbar{padding:5px 8px 8px 0}.arena .actionbar>.mobile-actions{gap:6px}.arena .mobile-actions button,.arena .actionbar #play{min-height:44px;font-size:15px}.arena .actionbar #clear{font-size:12px;min-height:32px}
-  .arena .hand{--column-width:51px;--card-height:70px;--stack-step:19px;gap:7px}
+  .arena .hand{--column-width:51px;--card-height:70px;--stack-step:24px;gap:7px}
   .arena .hand .hand-column .card{font-size:16px}.arena .hand .hand-column .card .suit{font-size:14px}
 }
+
+/* Keep every rank and suit inside the exposed strip of a vertical stack. */
+.arena .hand .hand-column .card{touch-action:pan-x pan-y}
+.arena .hand .hand-column .card .card-corner{position:absolute;top:2px;left:3px;display:flex;align-items:center;gap:3px;height:17px;line-height:17px;white-space:nowrap}
+.arena .hand .hand-column .card .card-corner .suit{margin:0;line-height:inherit}
+
+/* The scroll viewport contains a full-height row, so all column bottoms align. */
+.arena .hand{display:block}
+.arena .hand .hand-columns{display:flex;align-items:flex-end;justify-content:safe center;gap:inherit;width:max-content;min-width:100%;padding-right:6px}

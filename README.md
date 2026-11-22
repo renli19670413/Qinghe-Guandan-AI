@@ -1,6 +1,18 @@
 # 青禾掼蛋 · CherryIN 多厂家模型网页版
 
-支持离线规则 Agent 或 CherryIN 多厂家大模型，保留四方围桌、竖排理牌和暂停/中断续玩。准备发布到 GitHub 的账号为 [renli19670413](https://github.com/renli19670413)。[GitHub 发布步骤](PUBLISHING.md) 包含仓库上传、GitHub Pages 离线试玩和 Release 下载包说明；当前并未声称远程仓库已创建。
+支持离线规则 Agent 或 CherryIN 多厂家大模型，保留四方围桌、竖排理牌和暂停/中断续玩。仓库为 [renli19670413/Qinghe-Guandan-AI](https://github.com/renli19670413/Qinghe-Guandan-AI)。[GitHub 发布步骤](PUBLISHING.md) 包含手机在线使用与 Release 下载包说明。
+
+## GitHub Pages 手机在线版
+
+网址：[打开 CherryIN 掼蛋牌桌](https://renli19670413.github.io/Qinghe-Guandan-AI/)。手机建议横屏打开。菜单顶部填写自己的 CherryIN API Key，点“使用密钥”，选择 CherryIN 大模型、厂家、模型、难度，再应用设置。不需要电脑开机或 ChatGPT 登录。
+
+密钥只保存在当前页面的内存，直接通过 HTTPS 发送给 CherryIN；不上传 GitHub，不写浏览器存档。刷新后重新填写，退出前可清除密钥。使用者需信任站点当前源码及其维护者，并在 CherryIN 控制台限制令牌额度。
+
+Pages 使用 CherryIN 的 Messages 兼容接口调用各家文本模型，以适配其跨域鉴权；不能在 Pages 上切换底层接口。已用四家内置示例模型验证一次合法出牌；其他模型是否支持此接口取决于 CherryIN。模型错误会暂停，支持重试或换模型。本机版及独立云端版仍保留原接口选择。
+
+每页最多 200 次生成请求，刷新后计数重置，不是账单限额。存档在同一浏览器中保存，不跨设备同步。手机网络须能访问 GitHub Pages 与 CherryIN；若平台改变跨域配置，页面会显示连接错误，需要适配后才能继续大模型模式。
+
+## 本机版
 
 1. Windows 下双击 `StartWeb.cmd`，或在项目目录运行 `node server.js`（Node.js 22 或更新版本）。
 2. 打开 [本机牌桌](http://127.0.0.1:8765/)。默认是离线规则模式，不需要 API 密钥。

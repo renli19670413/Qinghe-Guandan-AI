@@ -8,8 +8,8 @@ test('GitHub source and Pages bundles include only public allowlisted files',()=
   }
   const tmp=fs.mkdtempSync(path.join(os.tmpdir(),'qinghe-distribution-'));
   const pages=path.join(tmp,'pages'),source=path.join(tmp,'source');D.buildPages(pages);D.copyFiles(D.sourceFiles,source);
-  assert(fs.readFileSync(path.join(pages,'index.html'),'utf8').includes('name="guandan-mode" content="static"'));
-  assert.deepEqual(fs.readdirSync(pages).sort(),[...D.webFiles,'.nojekyll'].sort());
+  assert(fs.readFileSync(path.join(pages,'index.html'),'utf8').includes('name="guandan-mode" content="pages"'));
+  assert.deepEqual(fs.readdirSync(pages).sort(),[...D.webFiles,'cherryin-pages.js','.nojekyll'].sort());
   assert(!fs.existsSync(path.join(source,'cherryin.config.json')));assert(!fs.existsSync(path.join(source,'server-start.log')));
   assert(fs.existsSync(path.join(source,'.github/workflows/test.yml')));
   assert.throws(()=>D.buildPages(pages),/非空/);

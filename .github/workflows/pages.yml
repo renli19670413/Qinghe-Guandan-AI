@@ -1,5 +1,7 @@
-name: Deploy offline demo to GitHub Pages
+name: Deploy CherryIN game to GitHub Pages
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read

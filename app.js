@@ -158,9 +158,9 @@ function render() {
   $('turn-message').textContent=game.phase==='return'?'贡牌已完成 · 等待还牌':game.phase==='over'?'本副已结束':`${names[game.turn]}${busy?'正在思考…':game.turn===0?'，轮到你了':'准备出牌'}`;
   const cards=orderedHand();
   const returnIds=humanReturn()?new Set(game.returnChoices(0).map(c=>c.id)):new Set();
-  const cardHTML=c=>`<button class="card ${c.s===1||c.s===3||c.r===16?'red':''} ${c.r>14?'joker':''} ${E.wild(c,game.level)?'wild':''} ${returnIds.has(c.id)?'returnable':''}" draggable="false" data-id="${c.id}" aria-label="${E.text(c)}，第 ${Number(c.id[0])+1} 副${E.wild(c,game.level)?'，百搭牌':''}" aria-pressed="false">${E.label(c.r)}${c.r<=14?`<span class="suit">${E.suits[c.s]}</span>`:''}<span class="pip">${c.r>14?'♛':E.suits[c.s]}</span>${E.wild(c,game.level)?'<span class="wild-tag">百搭</span>':''}</button>`;
+  const cardHTML=c=>`<button class="card ${c.s===1||c.s===3||c.r===16?'red':''} ${c.r>14?'joker':''} ${E.wild(c,game.level)?'wild':''} ${returnIds.has(c.id)?'returnable':''}" draggable="false" data-id="${c.id}" aria-label="${E.text(c)}，第 ${Number(c.id[0])+1} 副${E.wild(c,game.level)?'，百搭牌':''}" aria-pressed="false"><span class="card-corner">${E.label(c.r)}${c.r<=14?`<span class="suit">${E.suits[c.s]}</span>`:''}</span><span class="pip">${c.r>14?'♛':E.suits[c.s]}</span>${E.wild(c,game.level)?'<span class="wild-tag">百搭</span>':''}</button>`;
   const columns=HandColumns.columns(cards,handLayout.groups);
-  $('hand').innerHTML=columns.map(column=>`<div class="hand-column ${column.group?'packed-group':''}" role="group" aria-label="${column.group?'已理好组合':'点数 '+column.name}">${column.cards.map(cardHTML).join('')}</div>`).join('');
+  $('hand').innerHTML='<div class="hand-columns">'+columns.map(column=>`<div class="hand-column ${column.group?'packed-group':''}" role="group" aria-label="${column.group?'已理好组合':'点数 '+column.name}">${column.cards.map(cardHTML).join('')}</div>`).join('')+'</div>';
   document.querySelectorAll('#hand .hand-column').forEach((el,i)=>{
     el.style.setProperty('--stack-size',columns[i].cards.length);
     el.querySelectorAll('.card').forEach((card,index)=>card.style.setProperty('--stack-index',index));
