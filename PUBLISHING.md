@@ -5,7 +5,7 @@
 ## 方式一：GitHub 网页上传
 
 1. 用 `renli19670413` 登录 GitHub，打开 [创建仓库](https://github.com/new)。仓库名填 `Qinghe-Guandan-AI`，可自行选 Public 或 Private。
-2. 本地运行 `npm run package:windows`，解压 `dist/Qinghe-Guandan-AI-1.4.1-source.zip` 到新文件夹。
+2. 本地运行 `npm run package:windows`，解压 `dist/Qinghe-Guandan-AI-1.4.2-source.zip` 到新文件夹。
 3. 进入新仓库的「Add file → Upload files」，上传这个解压文件夹里的内容，包括 `.github`、`.gitignore` 等文件。不要上传原工作目录中的私有配置或整个 `dist` 文件夹。
 4. GitHub 网页不便上传点开头文件时，使用下面的 Git 方式。新仓库若已初始化 README，也可用 GitHub Desktop 克隆后把发布包内容复制过去、提交再推送。
 
@@ -41,8 +41,8 @@ git push -u origin main
 准备正式版本时：
 
 ```powershell
-git tag v1.4.1
-git push origin v1.4.1
+git tag v1.4.2
+git push origin v1.4.2
 ```
 
 标签触发 **Publish source release**，测试后自动创建 GitHub Release 并附上源码 ZIP。手动运行该工作流则仅生成 Actions 下载附件，不创建 Release。
