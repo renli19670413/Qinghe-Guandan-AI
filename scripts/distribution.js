@@ -2,10 +2,10 @@
 // Explicit allowlists: never recursively copy the working directory containing credentials.
 const fs=require('node:fs'),path=require('node:path');
 const root=path.resolve(__dirname,'..');
-const webFiles=['index.html','style.css','mobile.css','web.css','engine.js','agents.js','hand-layout.js','hand-columns.js','game-session.js','agent-settings.js','web-ui.js','app.js'];
+const webFiles=['index.html','style.css','mobile.css','web.css','phone.css','phone-layout.js','manifest.webmanifest','icon-192.png','icon-512.png','engine.js','agents.js','hand-layout.js','hand-columns.js','game-session.js','agent-settings.js','web-ui.js','app.js'];
 const sourceFiles=[...webFiles,'server.js','cherryin-agent.js','openai-agent.js','package.json','README.md','PUBLISHING.md','StartWeb.cmd','cherryin.config.example.json','openai.config.example.json',
   'cherryin-agent.test.js','openai-agent.test.js','server.test.js','layout-session.test.js','distribution.test.js','.gitignore','.gitattributes',
-  'scripts/distribution.js','scripts/pages-client.js','scripts/package.ps1','pages-client.test.js','.github/workflows/test.yml','.github/workflows/pages.yml','.github/workflows/release.yml'];
+  'scripts/distribution.js','scripts/pages-client.js','scripts/package.ps1','pages-client.test.js','phone-layout.test.js','.github/workflows/test.yml','.github/workflows/pages.yml','.github/workflows/release.yml'];
 function copyFiles(files,dest){for(const file of files){const target=path.join(dest,file);fs.mkdirSync(path.dirname(target),{recursive:true});fs.copyFileSync(path.join(root,file),target);}}
 function buildPages(destination=path.join(root,'dist/pages')){
   if(fs.existsSync(destination)&&fs.readdirSync(destination).length)throw Error('静态输出目录非空，请使用新的输出目录，防止混入旧文件');

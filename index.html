@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#143b2a"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-192.png">
   <title>掼蛋 · 青禾牌室</title><link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="mobile.css"><link rel="stylesheet" href="web.css"></head>
+<link rel="stylesheet" href="mobile.css"><link rel="stylesheet" href="web.css"><link rel="stylesheet" href="phone.css?v=1.4.0"></head>
 <body>
 <div class="app">
-  <header><div class="brand"><span class="brand-icon">♠</span><div><h1>青禾牌室 <small>掼蛋</small></h1><p>一人入座，四家对弈</p></div></div><div class="scorebar"><div><span>我方</span><strong id="our-level">2</strong></div><div class="round-tag"><span id="round">第 1 副</span><b id="level">本副打 2</b></div><div><strong id="their-level">2</strong><span>对方</span></div></div><div class="header-tools"><span class="offline"><i></i><span id="mode-label">离线单机</span></span><button id="mobile-settings-open">菜单</button><button id="exit-game">退出</button></div></header>
+  <header><div class="brand"><span class="brand-icon">♠</span><div><h1>青禾牌室 <small>掼蛋</small></h1><p>一人入座，四家对弈</p></div></div><div class="scorebar"><div><span>我方</span><strong id="our-level">2</strong></div><div class="round-tag"><span id="round">第 1 副</span><b id="level">本副打 2</b></div><div><strong id="their-level">2</strong><span>对方</span></div></div><div class="header-tools"><span class="offline"><i></i><span id="mode-label">离线单机</span></span><button id="phone-fullscreen">全屏</button><button id="mobile-settings-open">菜单</button><button id="exit-game">退出</button></div></header>
   <main>
     <section class="arena" aria-label="掼蛋牌桌">
       
@@ -25,7 +27,7 @@
   </main>
   <footer>108 张牌，两个阵营，一场好牌。<span>规则基于《竞技掼蛋竞赛规则（试行）》</span></footer>
 </div>
-<dialog id="mobile-settings"><div class="dialog-head"><h2>牌局菜单</h2><button id="mobile-settings-close" aria-label="关闭菜单">×</button></div><div class="mobile-settings-body"><div class="mobile-menu-tools"><button id="rules">规则说明</button><button id="restart">重新开局</button></div><aside>
+<dialog id="mobile-settings"><div class="dialog-head"><h2>牌局菜单</h2><button id="mobile-settings-close" aria-label="关闭菜单">×</button></div><div class="mobile-settings-body"><p id="display-notice" role="status">手机固定横屏。点击顶部“全屏”可隐藏地址栏；也可在浏览器菜单中添加到主屏幕，从图标打开。</p><div class="mobile-menu-tools"><button id="install-game">添加到主屏幕</button><button id="rules">规则说明</button><button id="restart">重新开局</button></div><aside>
       <section class="panel settings ai-settings" aria-label="AI 决策方式"><h3>CherryIN · AI 决策方式</h3><label>模式 <select id="agent-mode"><option value="local" selected>本地规则</option><option value="llm">CherryIN 大模型</option></select></label><div id="model-controls" hidden><label>模型厂家 <select id="agent-vendor"></select></label><label>模型类型 <select id="agent-model"></select></label><label id="custom-model-field" hidden>完整模型 ID <input id="custom-model" placeholder="厂家/模型名称" autocomplete="off"></label><button id="refresh-models">刷新 CherryIN 模型列表</button><p id="catalog-status">内置列表为官方文档示例，不保证当前令牌可用；可刷新或手动填写控制台 ID。</p><label>接口 <select id="agent-protocol"><option value="auto">自动选择</option><option value="chat">Chat Completions</option><option value="responses">Responses</option></select></label><label>难度 <select id="agent-difficulty"></select></label><p id="difficulty-detail"></p><p class="api-notice">三家通过 CherryIN 调用所选厂家的模型，各自发送自己的手牌及公开信息。消耗 CherryIN 额度，按平台计费。</p></div><p id="api-status" role="status"></p><button id="apply-ai" class="primary">应用 AI 设置</button></section>
       <div class="panel intro"><span class="eyebrow">TABLE NOTES</span><h2>独立决策，同队配合。</h2><p id="agent-description">三位本地规则型 Agent 在独立线程中决策，只读取自己的手牌和公开信息，不使用大模型。</p><div class="agent-line"><i></i><span id="agent-health">3 位 Agent 已就绪</span></div></div>
       <div class="panel settings"><h3>牌局设置</h3><label>出牌节奏 <select id="speed"><option value="3000">悠闲 · 3 秒</option><option value="1000" selected>标准 · 1 秒</option><option value="500">快速 · 0.5 秒</option></select></label><p>每家最近出的牌保留在座位前，再次出牌时更新；不出时仍保留上一手牌。</p><label>自动托管 <input id="auto" type="checkbox"></label><p>托管会替你选牌；随时关闭可接手。</p></div>
@@ -43,5 +45,5 @@
 </div></dialog>
 <dialog id="result-dialog"><span class="eyebrow">ROUND COMPLETE</span><h2 id="result-title"></h2><p id="result-detail"></p><div id="rankings"></div><button id="next" class="primary">开始下一副</button></dialog>
 <dialog id="exit-dialog"><h2>退出牌局</h2><p>暂停退出：保存当前出牌状态，下次继续。</p><p>中断退出：本副不计胜负，只保留双方级数，下次重新发牌。</p><p id="exit-error" role="alert"></p><div class="exit-actions"><button id="exit-pause" class="primary">暂停退出</button><button id="exit-interrupt">中断退出</button><button id="exit-cancel">取消，继续游戏</button></div></dialog><dialog id="resume-dialog"><h2 id="resume-title"></h2><p id="resume-detail"></p><button id="resume-game" class="primary">继续当前牌局</button></dialog>
-<script src="engine.js"></script><script src="agent-settings.js"></script><script src="agents.js"></script><script src="hand-layout.js"></script><script src="hand-columns.js"></script><script src="game-session.js"></script><script src="web-ui.js"></script><script src="app.js"></script>
+<script src="engine.js"></script><script src="agent-settings.js"></script><script src="agents.js"></script><script src="hand-layout.js"></script><script src="hand-columns.js"></script><script src="game-session.js"></script><script src="web-ui.js"></script><script src="app.js"></script><script src="phone-layout.js?v=1.4.0"></script>
 </body></html>

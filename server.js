@@ -2,8 +2,8 @@
 const http=require('node:http'),fs=require('node:fs/promises'),path=require('node:path');
 const {prepare,decide,listModels,baseURL,DEFAULT_BASE}=require('./cherryin-agent.js');
 const settings=require('./agent-settings.js');
-const pages=new Set(['index.html','style.css','mobile.css','web.css','engine.js','agents.js','hand-layout.js','hand-columns.js','game-session.js','agent-settings.js','web-ui.js','app.js']);
-const mime={'.html':'text/html','.css':'text/css','.js':'text/javascript'};
+const pages=new Set(require('./scripts/distribution.js').webFiles);
+const mime={'.html':'text/html','.css':'text/css','.js':'text/javascript','.png':'image/png','.webmanifest':'application/manifest+json'};
 async function readConfig(){
   let saved={};
   try{saved=JSON.parse((await fs.readFile(path.join(__dirname,'cherryin.config.json'),'utf8')).replace(/^\uFEFF/,''));}
