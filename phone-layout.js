@@ -6,13 +6,13 @@
   function metrics(width,height,count,stack){
     const gameWidth=Math.max(width,height),gameHeight=Math.min(width,height),fieldHeight=gameHeight-34;
     count=Math.max(1,count);stack=Math.max(1,stack);
-    const rail=76,gap=count>18?2:4,availableWidth=gameWidth-rail-18;
-    const zone=Math.max(65,Math.min(28+44+(stack-1)*16,fieldHeight-48));
+    const rail=76,statusSpace=112,gap=count>18?2:4,availableWidth=gameWidth-rail-statusSpace-18;
+    const zone=Math.max(65,Math.min(Math.max(108,28+44+(stack-1)*16),fieldHeight-48));
     const handHeight=zone-27,step=Math.max(10,Math.min(16,Math.floor((handHeight-28)/Math.max(1,stack-1))));
     const cardHeight=Math.max(24,Math.min(44,handHeight-(stack-1)*step));
     const contentHeight=cardHeight+(stack-1)*step;
     const cardWidth=Math.max(10,Math.min(38,Math.floor((availableWidth-(count-1)*gap)/count)));
-    return {gameWidth,gameHeight,rail,gap,zone,step,cardHeight,contentHeight,cardWidth,scale:Math.min(1,handHeight/contentHeight),font:Math.max(8,Math.min(13,step-3,Math.floor(cardWidth*.34)))};
+    return {gameWidth,gameHeight,rail,statusSpace,gap,zone,step,cardHeight,contentHeight,cardWidth,scale:Math.min(1,handHeight/contentHeight),font:Math.max(8,Math.min(13,step-3,Math.floor(cardWidth*.34)))};
   }
   function mount(){
     const root=document.documentElement,app=document.querySelector('.app'),hand=document.getElementById('hand');
@@ -27,7 +27,7 @@
       if(!phone)return;
       const columns=[...hand.querySelectorAll('.hand-column')];
       const sizes=columns.map(c=>c.children.length),m=metrics(width,height,columns.length,Math.max(1,...sizes));
-      const values={'game-width':m.gameWidth,'game-height':m.gameHeight,'screen-width':width,'hand-zone':m.zone,'action-rail':m.rail,'column-width':m.cardWidth,'card-height':m.cardHeight,'stack-step':m.step,'hand-content-height':m.contentHeight,'phone-font':m.font,'column-gap':m.gap};
+      const values={'game-width':m.gameWidth,'game-height':m.gameHeight,'screen-width':width,'hand-zone':m.zone,'action-rail':m.rail,'status-space':m.statusSpace,'column-width':m.cardWidth,'card-height':m.cardHeight,'stack-step':m.step,'hand-content-height':m.contentHeight,'phone-font':m.font,'column-gap':m.gap};
       for(const [key,value]of Object.entries(values))app.style.setProperty('--'+key,value+'px');
       app.style.setProperty('--hand-scale',m.scale);
       const fittedWidth=Math.max(10,Math.min(m.cardWidth,Math.floor((hand.clientWidth-8-(columns.length-1)*m.gap)/Math.max(1,columns.length))));

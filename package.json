@@ -1,6 +1,6 @@
 {
   "name": "qinghe-guandan-ai",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "private": true,
   "description": "Local Guandan web game with CherryIN multi-vendor AI agents",
   "engines": {"node": ">=22"},
