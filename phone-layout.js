@@ -22,6 +22,11 @@
       if(document.activeElement?.matches('input,textarea,select'))return;
       const width=innerWidth,height=innerHeight;
       const phone=matchMedia('(pointer:coarse)').matches||width<820&&height<820;
+      const installed=navigator.standalone||matchMedia('(display-mode: standalone)').matches||!document.fullscreenElement&&matchMedia('(display-mode: fullscreen)').matches;
+      fullscreen.hidden=!!(phone&&installed);
+      fullscreen.textContent=document.fullscreenElement?'退出全屏':phone?'主屏幕游玩':'全屏';
+      document.getElementById('browser-fullscreen').hidden=!!installed;
+      document.getElementById('install-game').hidden=!!installed;
       root.classList.toggle('phone-layout',phone);
       root.classList.toggle('phone-portrait',phone&&height>width);
       if(!phone)return;
@@ -39,7 +44,7 @@
     addEventListener('resize',schedule);addEventListener('orientationchange',schedule);
     document.addEventListener('focusout',schedule);
     document.addEventListener('fullscreenchange',()=>{fullscreen.textContent=document.fullscreenElement?'退出全屏':'全屏';schedule();});
-    fullscreen.onclick=async()=>{
+    async function browserFullscreen(){
       try{
         if(document.fullscreenElement){await document.exitFullscreen();return;}
         await document.documentElement.requestFullscreen({navigationUI:'hide'});
@@ -47,10 +52,13 @@
         notice.textContent='已进入全屏横屏牌桌';
       }catch{notice.textContent='此浏览器未允许全屏。请横握手机，或在浏览器菜单选择“添加到主屏幕”，从桌面图标打开即可隐藏地址栏。';document.getElementById('mobile-settings').showModal();}
       schedule();
-    };
+    }
+    document.getElementById('browser-fullscreen').onclick=browserFullscreen;
     let installPrompt;
     addEventListener('beforeinstallprompt',event=>{event.preventDefault();installPrompt=event;document.getElementById('install-game').hidden=false;});
-    document.getElementById('install-game').onclick=async()=>{if(installPrompt){await installPrompt.prompt();installPrompt=null;}else notice.textContent='请在手机浏览器菜单选择“添加到主屏幕”或“安装应用”，以后从桌面图标进入。';};
+    async function homeScreen(){if(installPrompt){await installPrompt.prompt();installPrompt=null;}else{notice.textContent='请在手机浏览器菜单选择“添加到主屏幕”或“安装应用”，以后从桌面图标打开游戏。主屏幕入口使用独立全屏，不会触发图片中的浏览器全屏安全提示。';document.getElementById('mobile-settings-open').click();}}
+    document.getElementById('install-game').onclick=homeScreen;
+    fullscreen.onclick=()=>document.fullscreenElement||!root.classList.contains('phone-layout')?browserFullscreen():homeScreen();
     fit();
   }
   return {metrics,mount};

@@ -410,8 +410,7 @@ $('exit-dialog').addEventListener('cancel',event=>{event.preventDefault();resume
 for(const kind of ['pause','interrupt'])$('exit-'+kind).onclick=()=>{
   if(!saveSession(kind)){$('exit-error').textContent='保存失败，请取消退出后检查浏览器存储空间。';return;}
   exitKind=kind;
-  if(kind==='interrupt'){const saved=GameSession.restore(JSON.parse(localStorage.getItem(storageKey)));game=saved.game;needsRedeal=true;pendingContexts=[];}
-  $('exit-dialog').close();showResume();
+  GameExit.leave();
 };
 $('resume-game').onclick=()=>resumeGame();
 $('resume-dialog').addEventListener('cancel',e=>e.preventDefault());
