@@ -74,7 +74,7 @@ function humanTurn() {return !suspended && game.phase==='play' && game.turn===0 
 function humanReturn() {return !suspended && game.phase==='return' && game.returns.some(t=>t.from===0) && !busy && !$('auto').checked;}
 function selectionCards() {return game.hands[0].filter(c=>selected.has(c.id));}
 function orderedHand() {
-  const cards=HandColumns.sort(game.hands[0]);
+  const cards=HandColumns.sort(game.hands[0],game.level);
   if(handLayout.round!==game.round) handLayout={round:game.round,ids:cards.map(c=>c.id),groups:[]};
   handLayout.ids=HandLayout.reconcile(handLayout.ids,cards);
   handLayout.groups=HandColumns.reconcile(handLayout.groups,cards);
@@ -86,7 +86,7 @@ function arrange(ids) {
   render();
 }
 function autoArrange(mode) {
-  let cards=HandColumns.sort(game.hands[0]);
+  let cards=HandColumns.sort(game.hands[0],game.level);
   if(mode==='suit') cards.sort((a,b)=>a.s-b.s || a.r-b.r);
   handLayout={round:game.round,ids:cards.map(c=>c.id),groups:[]};render();
 }
@@ -159,7 +159,7 @@ function render() {
   const cards=orderedHand();
   const returnIds=humanReturn()?new Set(game.returnChoices(0).map(c=>c.id)):new Set();
   const cardHTML=c=>`<button class="card ${c.s===1||c.s===3||c.r===16?'red':''} ${c.r>14?'joker':''} ${E.wild(c,game.level)?'wild':''} ${returnIds.has(c.id)?'returnable':''}" draggable="false" data-id="${c.id}" aria-label="${E.text(c)}，第 ${Number(c.id[0])+1} 副${E.wild(c,game.level)?'，百搭牌':''}" aria-pressed="false"><span class="card-corner">${E.label(c.r)}${c.r<=14?`<span class="suit">${E.suits[c.s]}</span>`:''}</span><span class="pip">${c.r>14?'♛':E.suits[c.s]}</span>${E.wild(c,game.level)?'<span class="wild-tag">百搭</span>':''}</button>`;
-  const columns=HandColumns.columns(cards,handLayout.groups);
+  const columns=HandColumns.columns(cards,handLayout.groups,game.level);
   $('hand').innerHTML='<div class="hand-columns">'+columns.map(column=>`<div class="hand-column ${column.group?'packed-group':''}" role="group" aria-label="${column.group?'已理好组合':'点数 '+column.name}">${column.cards.map(cardHTML).join('')}</div>`).join('')+'</div>';
   document.querySelectorAll('#hand .hand-column').forEach((el,i)=>{
     el.style.setProperty('--stack-size',columns[i].cards.length);

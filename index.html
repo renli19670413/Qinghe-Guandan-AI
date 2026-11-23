@@ -5,7 +5,7 @@
   <meta name="theme-color" content="#143b2a"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-192.png">
   <title>掼蛋 · 青禾牌室</title><link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="mobile.css"><link rel="stylesheet" href="web.css"><link rel="stylesheet" href="phone.css?v=1.4.3"></head>
+<link rel="stylesheet" href="mobile.css"><link rel="stylesheet" href="web.css"><link rel="stylesheet" href="phone.css?v=1.4.4"></head>
 <body>
 <div class="app">
   <header><div class="brand"><span class="brand-icon">♠</span><div><h1>青禾牌室 <small>掼蛋</small></h1><p>一人入座，四家对弈</p></div></div><div class="scorebar"><div><span>我方</span><strong id="our-level">2</strong></div><div class="round-tag"><span id="round">第 1 副</span><b id="level">本副打 2</b></div><div><strong id="their-level">2</strong><span>对方</span></div></div><div class="header-tools"><span class="offline"><i></i><span id="mode-label">离线单机</span></span><button id="phone-fullscreen">全屏</button><button id="mobile-settings-open">菜单</button><button id="exit-game">退出</button></div></header>
@@ -45,5 +45,5 @@
 </div></dialog>
 <dialog id="result-dialog"><span class="eyebrow">ROUND COMPLETE</span><h2 id="result-title"></h2><p id="result-detail"></p><div id="rankings"></div><button id="next" class="primary">开始下一副</button></dialog>
 <dialog id="exit-dialog"><h2>退出牌局</h2><p>暂停退出：保存当前出牌状态，下次继续。</p><p>中断退出：本副不计胜负，只保留双方级数，下次重新发牌。</p><p id="exit-error" role="alert"></p><div class="exit-actions"><button id="exit-pause" class="primary">暂停退出</button><button id="exit-interrupt">中断退出</button><button id="exit-cancel">取消，继续游戏</button></div></dialog><dialog id="resume-dialog"><h2 id="resume-title"></h2><p id="resume-detail"></p><button id="resume-game" class="primary">继续当前牌局</button></dialog>
-<script src="engine.js"></script><script src="agent-settings.js"></script><script src="agents.js"></script><script src="hand-layout.js"></script><script src="hand-columns.js"></script><script src="game-session.js"></script><script src="web-ui.js"></script><script src="game-exit.js?v=1.4.3"></script><script src="app.js?v=1.4.3"></script><script src="phone-layout.js?v=1.4.3"></script>
+<script src="engine.js"></script><script src="agent-settings.js"></script><script src="agents.js"></script><script src="hand-layout.js"></script><script src="hand-columns.js?v=1.4.4"></script><script src="game-session.js"></script><script src="web-ui.js"></script><script src="game-exit.js?v=1.4.4"></script><script src="app.js?v=1.4.4"></script><script src="phone-layout.js?v=1.4.4"></script>
 </body></html>

@@ -1,15 +1,16 @@
 (function(root,factory){
   if(typeof module==='object'&&module.exports)module.exports=factory(require('./engine.js'));else root.HandColumns=factory(root.Guandan);
 })(globalThis,E=>{
-  // Display order is by printed rank, independent from the level used to compare plays.
-  const sort=cards=>cards.slice().sort((a,b)=>a.r-b.r||a.s-b.s||a.id.localeCompare(b.id));
+  // The current level ranks above ordinary cards and directly below small joker.
+  // Without a level, retain printed-rank order for manually packed combinations.
+  const sort=(cards,level)=>E.sort(cards,level);
   function reconcile(groups,cards){
     const ids=new Set(cards.map(c=>c.id)),seen=new Set();
     return (Array.isArray(groups)?groups:[]).map(g=>({key:g.key,name:g.name,ids:(Array.isArray(g.ids)?g.ids:[]).filter(id=>{if(!ids.has(id)||seen.has(id))return false;seen.add(id);return true;})})).filter(g=>g.ids.length);
   }
-  function columns(cards,groups=[]){
+  function columns(cards,groups=[],level){
     const byId=new Map(cards.map(c=>[c.id,c])),kept=reconcile(groups,cards),grouped=new Set(kept.flatMap(g=>g.ids)),normal=[];
-    for(const c of sort(cards).filter(c=>!grouped.has(c.id))){
+    for(const c of sort(cards,level).filter(c=>!grouped.has(c.id))){
       let column=normal.at(-1);if(!column||column.rank!==c.r){column={rank:c.r,name:E.label(c.r),cards:[],group:false};normal.push(column);}column.cards.push(c);
     }
     return [...normal,...kept.map(g=>({...g,group:true,cards:g.ids.map(id=>byId.get(id))}))];

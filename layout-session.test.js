@@ -2,11 +2,15 @@
 const {test}=require('node:test'),assert=require('node:assert/strict'),vm=require('node:vm'),fs=require('node:fs');
 const E=require('./engine.js'),H=require('./hand-columns.js'),P=require('./game-session.js');
 const deck=E.deck(),cards=r=>deck.filter(c=>c.r===r);
-test('printed ranks ascend even for level cards; identical ranks stack spade/heart/club/diamond',()=>{
-  const hand=[...cards(14),...cards(2),...cards(7)].reverse(),columns=H.columns(hand);
-  assert.deepEqual(columns.map(c=>c.rank),[2,7,14]);
-  for(const c of columns)assert.deepEqual(c.cards.map(c=>c.s),[0,0,1,1,2,2,3,3]);
-  assert.deepEqual(hand,[...cards(14),...cards(2),...cards(7)].reverse(),'does not mutate game hands');
+test('every current level sits immediately before small joker; suit order stays unchanged',()=>{
+  const hand=deck.slice().reverse(),printed=Array.from({length:13},(_,i)=>i+2);
+  for(const level of printed){
+    const columns=H.columns(hand,[],level);
+    assert.deepEqual(columns.map(c=>c.rank),[...printed.filter(r=>r!==level),level,15,16]);
+    for(const c of columns.filter(c=>c.rank<=14))assert.deepEqual(c.cards.map(c=>c.s),[0,0,1,1,2,2,3,3]);
+    const sorted=H.sort(hand,level);assert.equal(sorted.at(-5).r,level);assert.equal(sorted.at(-4).r,15);
+  }
+  assert.deepEqual(hand,deck.slice().reverse(),'does not mutate game hands');
 });
 test('legal combination goes to right without requiring it to beat table target, invalid selection is rejected',()=>{
   const hand=[...cards(3).slice(0,3),...cards(4).slice(0,2),...cards(6).slice(0,2),...cards(14).slice(0,2)];
