@@ -113,7 +113,7 @@ function refreshSelection() {
     return;
   }
   const choices=E.classify(cards,game.level,game.target);
-  if (!cards.length) container.textContent=humanTurn()?(game.target?'轮到你跟牌：选牌、提示，或不出':'轮到你领出：选择任意合法牌型'):'点击手牌可提前选牌';
+  if (!cards.length) container.textContent=humanTurn()?(game.target?'轮到你跟牌：选牌、提示，或不要':'轮到你领出：选择任意合法牌型'):'点击手牌可提前选牌';
   else if (!choices.length) {
     const valid=E.classify(cards,game.level);
     container.textContent=valid.length && game.target
@@ -149,8 +149,8 @@ function render() {
     area.classList.toggle('current-target',isTarget);
     area.setAttribute('aria-label',`${names[seat]}最近出的牌`);
     area.innerHTML=(played?`<div class="seat-cards">${mini(played.cards,played.move)}</div><div class="seat-play-label">${played.move.name} · ${E.label(played.move.main)}</div>`:'<div class="seat-empty">尚未出牌</div>')+
-      (isTarget?'<span class="pass-badge">当前要压的牌</span>':recent?.kind==='pass'?'<span class="pass-badge">不出</span>':'');
-    area.title=played?`${names[seat]}：${played.cards.map(E.text).join(' ')}${recent?.kind==='pass'?'（本次不出）':''}`:'';
+      (isTarget?'<span class="pass-badge">当前要压的牌</span>':recent?.kind==='pass'?'<span class="pass-badge">不要</span>':'');
+    area.title=played?`${names[seat]}：${played.cards.map(E.text).join(' ')}${recent?.kind==='pass'?'（本次不要）':''}`:'';
     const backs=el.querySelector('.backs');if (backs) backs.hidden=game.hands[seat].length===0;
   }
   $('target-cards').innerHTML=game.target?mini(game.target.cards,game.target):'';
@@ -291,7 +291,7 @@ $('hint').onclick=()=>{
   if (lastSignature!==signature) {lastSignature=signature;hintIndex=0;}
   const best=E.choose(game.observation(0)).move;
   if (best) {const index=moves.findIndex(m=>m.key===best.key);if(index>=0)moves.unshift(...moves.splice(index,1));}
-  if (!moves.length) {showError('没有可压过的牌，请点击“不出”。');return;}
+  if (!moves.length) {showError('没有可压过的牌，请点击“不要”。');return;}
   const move=moves[hintIndex++%moves.length];selected=new Set(move.cards.map(c=>c.id));refreshSelection();
   if ($('move-choice')) $('move-choice').value=move.key;
   showError(`提示 ${((hintIndex-1)%moves.length)+1}/${moves.length} · 再点可切换`);

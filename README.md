@@ -1,10 +1,10 @@
-# 青禾掼蛋 · CherryIN 多厂家模型网页版
+# IN版掼蛋 · CherryIN 多厂家模型网页版
 
 支持离线规则 Agent 或 CherryIN 多厂家大模型，保留四方围桌、竖排理牌和暂停/中断续玩。仓库为 [renli19670413/Qinghe-Guandan-AI](https://github.com/renli19670413/Qinghe-Guandan-AI)。[GitHub 发布步骤](PUBLISHING.md) 包含手机在线使用与 Release 下载包说明。
 
 ## GitHub Pages 手机在线版
 
-网址：[打开 CherryIN 掼蛋牌桌](https://renli19670413.github.io/Qinghe-Guandan-AI/)。手机固定为横屏牌桌，竖握时画面自动旋转，请横握游玩。顶部“主屏幕游玩”提供安装或添加到主屏幕入口，从图标打开使用独立全屏；菜单中仍可选择普通浏览器全屏，但会出现浏览器自身的安全提示。菜单顶部填写自己的 CherryIN API Key，点“使用密钥”，选择 CherryIN 大模型、厂家、模型、难度，再应用设置。不需要电脑开机或 ChatGPT 登录。
+网址：[打开 IN版掼蛋](https://renli19670413.github.io/Qinghe-Guandan-AI/)。手机固定为横屏牌桌，竖握时画面自动旋转，请横握游玩。顶部“主屏幕游玩”提供安装或添加到主屏幕入口，从图标打开使用独立全屏；菜单中仍可选择普通浏览器全屏，但会出现浏览器自身的安全提示。菜单顶部填写自己的 CherryIN API Key，点“使用密钥”，选择 CherryIN 大模型、厂家、模型、难度，再应用设置。不需要电脑开机或 ChatGPT 登录。
 
 密钥只保存在当前页面的内存，直接通过 HTTPS 发送给 CherryIN；不上传 GitHub，不写浏览器存档。刷新后重新填写，退出前可清除密钥。使用者需信任站点当前源码及其维护者，并在 CherryIN 控制台限制令牌额度。
 
